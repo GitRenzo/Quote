@@ -1,11 +1,17 @@
-import AppSeguro from "./components/AppSeguro"
+import AppInsurance from "./components/AppInsurance"
+import { QuoteProvider } from "./context/QuoteProvider"
+
+
 function App() {
 
   return (
     <>
-      <AppSeguro />
+      <QuoteProvider>
+        <AppInsurance />
+      </QuoteProvider>
     </>
   )
+
 }
 
 export default App

@@ -1,17 +1,24 @@
 import { Fragment } from "react";
 import { brands, years, plans } from "../constants"
+import useQuoteTool from "../hooks/useQuoteTool";
 
-function Formulario() {
-    console.log(plans);
+function Form() {
+
+    const { handleDataChange, datos } = useQuoteTool()
     return (
         <>
+
             <form action="">
 
                 <div className='my-5'>
                     <label htmlFor="" className='block mb-3 font-bold text-gray-400 uppercase'>
                         Brand
                     </label>
-                    <select name="marca" id="" className='w-full p-3 bg-white border border-gray-200'>
+                    <select name="brand" id="" className='w-full p-3 bg-white border border-gray-200'
+                        onChange={e => handleDataChange(e)}
+                        value={datos.brand}
+
+                    >
                         <option value="">---- Select Brand ----</option>
                         {brands.map((brand) => (
                             <option value={brand.id} key={brand.id}>
@@ -26,7 +33,10 @@ function Formulario() {
                     <label htmlFor="" className='block mb-3 font-bold text-gray-400 uppercase'>
                         Year
                     </label>
-                    <select name="marca" id="" className='w-full p-3 bg-white border border-gray-200'>
+                    <select name="year" id="" className='w-full p-3 bg-white border border-gray-200'
+                        onChange={e => handleDataChange(e)}
+                        value={datos.year}
+                    >
                         <option value="">---- Select Year ----</option>
                         {years.map((year) => (
                             <option value={year} key={year}>
@@ -44,9 +54,12 @@ function Formulario() {
 
                     <div className="flex gap-3 items-center">
                         {plans.map(plan => (
-                            <Fragment>
+                            <Fragment key={plan.id}>
                                 <label htmlFor="">{plan.name}</label>
-                                <input type="radio" name="plan" value={plan.id} />
+
+                                <input type="radio" name="plan" value={plan.id}
+                                    onChange={e => handleDataChange(e)}
+                                />
                             </Fragment>
                         ))}
 
@@ -62,4 +75,4 @@ function Formulario() {
     )
 }
 
-export default Formulario
+export default Form
