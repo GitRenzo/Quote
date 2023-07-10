@@ -15,9 +15,10 @@ const QuoteProvider = ({ children }) => {
         setDatos(
             {
                 ...datos,
-                [e.target.name] : e.target.value
+                [e.target.name] : e.target.value,
             }
         )
+        console.log(datos.plan);
     }
 
     return (
