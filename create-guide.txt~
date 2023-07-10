@@ -1,0 +1,9 @@
+Create guide project---
+
+npx install vite@latest
+
+npm install
+
+npm install tailwindcss postcss autoprefixer
+
+npx tailwindcss init -p
