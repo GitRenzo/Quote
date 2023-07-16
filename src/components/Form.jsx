@@ -23,8 +23,7 @@ function Form() {
 
             {error && <Error />}
 
-            <form onSubmit={handleSubmit} action="">
-
+            <form onSubmit={handleSubmit}>
                 <div className='my-5'>
                     <label htmlFor="" className='block mb-3 font-bold text-gray-400 uppercase'>
                         Brand

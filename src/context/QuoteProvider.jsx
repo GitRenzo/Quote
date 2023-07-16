@@ -13,6 +13,7 @@ const QuoteProvider = ({ children }) => {
 
     const [error, setError] = useState("")
     const [result, setResult] = useState(0)
+    const [loader, setLoader] = useState(false)
 
     const handleDataChange = e => {
         setData(
@@ -36,7 +37,12 @@ const QuoteProvider = ({ children }) => {
 
         result = formatMoney(result)
         
-        setResult(result)
+        setLoader(true)
+        
+        setTimeout(() => {
+            setResult(result)
+            setLoader(false)
+        }, 3000);
     }
 
     return (
@@ -48,6 +54,7 @@ const QuoteProvider = ({ children }) => {
                 setError,
                 quoteInsurance,
                 result,
+                loader,
             }}
         >
 
