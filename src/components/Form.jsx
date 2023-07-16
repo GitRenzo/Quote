@@ -2,13 +2,28 @@ import { Fragment } from "react";
 import { brands, years, plans } from "../constants"
 import useQuoteTool from "../hooks/useQuoteTool";
 
+import Error from "./Error";
+
 function Form() {
 
-    const { handleDataChange, datos } = useQuoteTool()
+    const { handleDataChange, data, error, setError, quoteInsurance } = useQuoteTool()
+
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        if (Object.values(data).includes("")) {
+            setError("Todos los campos son obligatorios")
+            return
+        }
+        setError("")
+        quoteInsurance()
+    }
+
     return (
         <>
 
-            <form action="">
+            {error && <Error />}
+
+            <form onSubmit={handleSubmit} action="">
 
                 <div className='my-5'>
                     <label htmlFor="" className='block mb-3 font-bold text-gray-400 uppercase'>
@@ -16,7 +31,7 @@ function Form() {
                     </label>
                     <select name="brand" id="" className='w-full p-3 bg-white border border-gray-200'
                         onChange={e => handleDataChange(e)}
-                        value={datos.brand}
+                        value={data.brand}
 
                     >
                         <option value="">---- Select Brand ----</option>
@@ -35,7 +50,7 @@ function Form() {
                     </label>
                     <select name="year" id="" className='w-full p-3 bg-white border border-gray-200'
                         onChange={e => handleDataChange(e)}
-                        value={datos.year}
+                        value={data.year}
                     >
                         <option value="">---- Select Year ----</option>
                         {years.map((year) => (
@@ -69,7 +84,6 @@ function Form() {
                 <input type="submit" className="w-full bg-indigo-500 hover:bg-indigo-600 transition-colors text-white cursor-pointer p-3 uppercase font-bold"
                     value="Get Quote"
                 />
-
             </form>
         </>
     )

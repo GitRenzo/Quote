@@ -1,31 +1,53 @@
 import { createContext, useState } from "react";
+import { getYearDifference, calculateBrandPrice, calculatePlanPrice, formatMoney } from "../helpers/index"
 
 const QuoteContext = createContext()
 
 const QuoteProvider = ({ children }) => {
 
-    const [datos, setDatos] = useState({
+    const [data, setData] = useState({
         brand: "",
         year: "",
-        plan: "",
+        plan: "",  
     })
+
+    const [error, setError] = useState("")
+    const [result, setResult] = useState(0)
+
     const handleDataChange = e => {
-        console.log(e.target.name);
-        console.log(e.target.value);
-        setDatos(
+        setData(
             {
-                ...datos,
-                [e.target.name] : e.target.value,
+                ...data,
+                [e.target.name]: e.target.value,
             }
         )
-        console.log(datos.plan);
+    }
+
+    const quoteInsurance = () => {
+        let result = 2000
+
+        const yearDifference = getYearDifference(data.year)
+
+        result -= ((yearDifference * 3) * result) / 100
+
+        result *= calculateBrandPrice(data.brand)
+
+        result *= calculatePlanPrice(data.plan)
+
+        result = formatMoney(result)
+        
+        setResult(result)
     }
 
     return (
         <QuoteContext.Provider
             value={{
                 handleDataChange,
-                datos,
+                data,
+                error,
+                setError,
+                quoteInsurance,
+                result,
             }}
         >
 
